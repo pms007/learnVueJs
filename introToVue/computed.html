@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<style>
+		.product-image img{
+			width:200px;
+		}
+		.color-box{
+			width: 40px;
+			height: 40px;
+			margin: 10px;
+		}
+	</style>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<div class="product-image">
+			<img :src="image">
+		</div>
+
+		<div class="product-info">
+			<h1>{{ title }}</h1>
+			<p v-if="inStock">In Stock</p>
+			<p v-else>Out of Stock</p>
+
+			<ul>
+				<li v-for="detail in details">{{ detail }}</li>
+			</ul>
+
+		
+			<div v-for="(varient,index) in varients" :key="varient.varientId" 
+				 class="color-box"
+				 :style="{ background : varient.varientColor}"
+				 @mouseover="updateProduct(varient.varientImage)"
+			>
+			</div>
+
+			<button @click="addToCart" :disabled="!inStock">Add To Cart</button>
+			<div class="cart">
+				<p>Cart({{cart}})</p>
+			</div>
+			
+		</div>
+	</div>
+
+	<script>
+		var app = new Vue({
+			el: '#app',
+			data: {
+				brand: 'Vue',
+				product: 'Socks',
+				image: '../assets/vue.png',
+				inStock: true,
+				details: [
+					"80% cotton",
+					"20% bla bla",
+					"Gender-natural"
+				],
+				varients: [
+					{
+						varientId: 123,
+						varientColor: "green",
+						varientImage: "../assets/vue.png"
+					},
+					{
+						varientId: 124,
+						varientColor: "blue",
+						varientImage: "../assets/vuejs.png"
+					}
+				],
+				cart: 0,
+			},
+			methods:{
+
+				addToCart: function(){
+					this.cart += 1
+				},
+				updateProduct: function(varientImage){
+					this.image = varientImage
+				}
+
+			},
+			computed:{
+				title(){
+					return this.brand+ " "+this.product
+				}
+			}
+		})
+	</script>
+</body>
+</html>

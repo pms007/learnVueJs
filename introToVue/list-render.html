@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<style>
+		.product-image img{
+			width:200px;
+		}
+	</style>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<div class="product-image">
+			<img :src="image">
+		</div>
+
+		<div class="product-info">
+			<h1>{{ product }}</h1>
+			<p v-if="inStock">In Stock</p>
+			<p v-else>Out of Stock</p>
+
+			<ul>
+				<li v-for="detail in details">{{ detail }}</li>
+			</ul>
+
+			<ul>
+				<li v-for="varient in varients" :key="varient.varientId">{{ varient.varientColor }}</li>
+			</ul>
+			
+		</div>
+	</div>
+
+	<script>
+		var app = new Vue({
+			el: '#app',
+			data: {
+				product: 'Socks',
+				image: '../assets/vue.png',
+				inStock: true,
+				details: [
+					"80% cotton",
+					"20% bla bla",
+					"Gender-natural"
+				],
+				varients: [
+					{
+						varientId: 123,
+						varientColor: "Green"
+					},
+					{
+						varientId: 124,
+						varientColor: "Blue"
+					}
+				],
+			}
+		})
+	</script>
+</body>
+</html>
